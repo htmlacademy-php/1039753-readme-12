@@ -23,3 +23,15 @@ function esc($str) {
     $text = htmlspecialchars($str);
     return $text;
 };
+
+function calcRelativeTime($ts) {
+    $now = time();
+    $diff_sec = $now - $ts;
+    $sec_in_minutus = 60;
+    $sec_in_hour = 3600;
+    $sec_in_day = 86400;
+    $sec_in_week = 604800;
+
+    $ago = floor($diff_sec / $sec_in_day);
+    return $ago . ' дней назад';
+}
