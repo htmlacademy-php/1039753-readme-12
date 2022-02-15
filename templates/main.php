@@ -146,7 +146,7 @@
                                     $date = generate_random_date($key);
                                     $ts = strtotime($date);
                                     ?>
-                                    <time class="post__time" datetime="<?= date('c', $ts); ?>" title="<?= date('d.m.Y H:m', $ts); ?>"><?= calcRelativeTime($ts); ?></time>
+                                    <time class="post__time" datetime="<?= date('c', $ts); ?>" title="<?= date('d.m.Y H:i', $ts); ?>"><?= calcRelativeTime($ts); ?></time>
                                 </div>
                             </a>
                         </div>

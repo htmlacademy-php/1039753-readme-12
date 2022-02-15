@@ -27,11 +27,30 @@ function esc($str) {
 function calcRelativeTime($ts) {
     $now = time();
     $diff_sec = $now - $ts;
-    $sec_in_minutus = 60;
-    $sec_in_hour = 3600;
-    $sec_in_day = 86400;
-    $sec_in_week = 604800;
 
-    $ago = floor($diff_sec / $sec_in_day);
-    return $ago . ' дней назад';
+    $minutes60 = 60 * 60;
+    $hours24 = 24 * 3600;
+    $days7 = 7 * 86400;
+    $weeeks5 = 5 * 604800;
+    $result = '';
+
+    if ($diff_sec < $minutes60) {
+        $minuts = ceil($diff_sec / 60);
+        $result = $minuts . ' ' . get_noun_plural_form($minuts, 'минута', 'минуты', 'минут');
+    } else if ($diff_sec >= $minutes60 && $diff_sec < $hours24) {
+        $hours = ceil($diff_sec / 3600);
+        $result = $hours . ' ' . get_noun_plural_form($hours, 'час', 'часа', 'часов');
+    } else if ($diff_sec >= $hours24 && $diff_sec < $days7) {
+        $days = ceil($diff_sec / 86400);
+        $result = $days . ' ' . get_noun_plural_form($days, 'день', 'дня', 'дней');
+    } else if ($diff_sec >= $days7 && $diff_sec < $weeeks5) {
+        $weeks = ceil($diff_sec / 604800);
+        $result = $weeks . ' ' . get_noun_plural_form($weeks, 'неделя', 'недели', 'недель');
+    } else {
+        $months = ceil($diff_sec / 2629743);
+        $result = $months . ' ' . get_noun_plural_form($months, 'месяц', 'месяца', 'месяцев');
+    }
+
+    return $result . ' назад';
+
 }
