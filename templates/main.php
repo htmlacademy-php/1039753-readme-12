@@ -56,19 +56,19 @@
         </div>
         <div class="popular__posts">
             <?php foreach ($posts as $key => $post) : ?>
-                <article class="popular__post post <?= $post['type']; ?>">
+                <article class="popular__post post post-<?= $post['type']; ?>">
                     <header class="post__header">
                         <h2><?= $post['title']; ?></h2>
                     </header>
                     <div class="post__main">
-                        <?php if ($post['type'] === 'post-quote') : ?>
+                        <?php if ($post['type'] === 'quote') : ?>
                             <blockquote>
                                 <p>
                                     <?= esc($post['description']); ?>
                                 </p>
                                 <cite>Неизвестный Автор</cite>
                             </blockquote>
-                        <? elseif ($post['type'] === 'post-link') : ?>
+                        <? elseif ($post['type'] === 'link') : ?>
                             <div class="post-link__wrapper">
                                 <a class="post-link__external" href="http://" title="Перейти по ссылке">
                                     <div class="post-link__info-wrapper">
@@ -82,11 +82,11 @@
                                     <span><?= esc($post['description']); ?></span>
                                 </a>
                             </div>
-                        <? elseif ($post['type'] === 'post-photo') : ?>
+                        <? elseif ($post['type'] === 'photo') : ?>
                             <div class="post-photo__image-wrapper">
                                 <img src="img/<?= $post['description']; ?>" alt="Фото от пользователя" width="360" height="240">
                             </div>
-                        <? elseif ($post['type'] === 'post-video') : ?>
+                        <? elseif ($post['type'] === 'video') : ?>
                             <div class="post-video__block">
                                 <div class="post-video__preview">
                                     <?= embed_youtube_cover($test); ?>
@@ -99,7 +99,7 @@
                                     <span class="visually-hidden">Запустить проигрыватель</span>
                                 </a>
                             </div>
-                        <? elseif ($post['type'] === 'post-text') : ?>
+                        <? elseif ($post['type'] === 'text') : ?>
                             <?= cutText(esc($post['description'])) ?>
                         <? endif ?>
 
