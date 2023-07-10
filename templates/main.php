@@ -66,11 +66,11 @@
                                 <p>
                                     <?= esc($post['description']); ?>
                                 </p>
-                                <cite>Неизвестный Автор</cite>
+                                <cite><?= $post['quote_author']; ?></cite>
                             </blockquote>
                         <? elseif ($post['type'] === 'link') : ?>
                             <div class="post-link__wrapper">
-                                <a class="post-link__external" href="http://" title="Перейти по ссылке">
+                                <a class="post-link__external" href="http://<?= esc($post['site_link']); ?>" title="Перейти по ссылке">
                                     <div class="post-link__info-wrapper">
                                         <div class="post-link__icon-wrapper">
                                             <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
@@ -79,12 +79,12 @@
                                             <h3><?= $post['title']; ?></h3>
                                         </div>
                                     </div>
-                                    <span><?= esc($post['description']); ?></span>
+                                    <span><?= esc($post['site_link']); ?></span>
                                 </a>
                             </div>
                         <? elseif ($post['type'] === 'photo') : ?>
                             <div class="post-photo__image-wrapper">
-                                <img src="img/<?= $post['description']; ?>" alt="Фото от пользователя" width="360" height="240">
+                                <img src="img/<?= $post['img_path']; ?>" alt="Фото от пользователя" width="360" height="240">
                             </div>
                         <? elseif ($post['type'] === 'video') : ?>
                             <div class="post-video__block">
