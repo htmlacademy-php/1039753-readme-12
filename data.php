@@ -3,40 +3,10 @@ $is_auth = rand(0, 1);
 
 $user_name = 'Мария Орлова'; // укажите здесь ваше имя
 
-$posts = [
-    [
-        'title' => 'Цитата',
-        'type' => 'post-quote',
-        'description' => 'Мы в жизни любим только раз, а после ищем лишь похожих',
-        'username' => 'Лариса',
-        'avatar' => 'userpic-larisa-small.jpg'
-    ],
-    [
-        'title' => 'Игра престолов',
-        'type' => 'post-text',
-        'description' => 'В лингвистике термин «текст» используется в широком значении, включая и образцы устной речи. Восприятие текста изучается в рамках лингвистики текста и психолингвистики. Так, например, И. Р. Гальперин определяет текст следующим образом: «Это письменное сообщение, объективированное в виде письменного документа, состоящее из ряда высказываний, объединённых разными типами лексической, грамматической и логической связи, имеющее определённый моральный характер, прагматическую установку и соответственно литературно обработанное»',
-        'username' => 'Владик',
-        'avatar' => 'userpic.jpg'
-    ],
-    [
-        'title' => 'Наконец, обработал фотки!',
-        'type' => 'post-photo',
-        'description' => 'rock-medium.jpg',
-        'username' => 'Виктор',
-        'avatar' => 'userpic-mark.jpg'
-    ],
-    [
-        'title' => 'Моя мечта',
-        'type' => 'post-photo',
-        'description' => 'coast-medium.jpg',
-        'username' => 'Лариса',
-        'avatar' => 'userpic-larisa-small.jpg'
-    ],
-    [
-        'title' => 'Лучшие курсы',
-        'type' => 'post-link',
-        'description' => 'www.htmlacademy.ru',
-        'username' => 'Владик',
-        'avatar' => 'userpic.jpg'
-    ]
-];
+$categories_sql = "SELECT id, name, icon_class FROM categories";
+$posts_sql = "SELECT p.title, p.description, p.img_path, p.quote_author, p.video_path, p.site_link, u.name AS username, u.avatar_path AS avatar, c.icon_class AS type
+    FROM posts p
+    JOIN users u ON p.user_id = u.id
+    JOIN categories c ON p.category_id = c.id
+    ORDER BY show_count DESC
+    LIMIT 6";

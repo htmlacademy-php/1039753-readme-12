@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS posts (
   dt_add TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   title VARCHAR(128) NOT NULL,
   description TEXT,
-  quote_author VARCHAR(128),
+  quote_author VARCHAR(128) DEFAULT 'Неизвестный автор',
   img_path VARCHAR(128),
   video_path VARCHAR(128),
   site_link VARCHAR(128),

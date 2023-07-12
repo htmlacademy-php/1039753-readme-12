@@ -41,66 +41,36 @@
                             <span>Все</span>
                         </a>
                     </li>
-                    <li class="popular__filters-item filters__item">
-                        <a class="filters__button filters__button--photo button" href="#">
-                            <span class="visually-hidden">Фото</span>
+                    <?php foreach ($categories as $category) : ?>
+                        <li class="popular__filters-item filters__item">
+                        <a class="filters__button filters__button--<?= $category['icon_class'] ?> button" href="#">
+                            <span class="visually-hidden"><?= $category['name'] ?></span>
                             <svg class="filters__icon" width="22" height="18">
-                                <use xlink:href="#icon-filter-photo"></use>
+                                <use xlink:href="#icon-filter-<?= $category['icon_class'] ?>"></use>
                             </svg>
                         </a>
                     </li>
-                    <li class="popular__filters-item filters__item">
-                        <a class="filters__button filters__button--video button" href="#">
-                            <span class="visually-hidden">Видео</span>
-                            <svg class="filters__icon" width="24" height="16">
-                                <use xlink:href="#icon-filter-video"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="popular__filters-item filters__item">
-                        <a class="filters__button filters__button--text button" href="#">
-                            <span class="visually-hidden">Текст</span>
-                            <svg class="filters__icon" width="20" height="21">
-                                <use xlink:href="#icon-filter-text"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="popular__filters-item filters__item">
-                        <a class="filters__button filters__button--quote button" href="#">
-                            <span class="visually-hidden">Цитата</span>
-                            <svg class="filters__icon" width="21" height="20">
-                                <use xlink:href="#icon-filter-quote"></use>
-                            </svg>
-                        </a>
-                    </li>
-                    <li class="popular__filters-item filters__item">
-                        <a class="filters__button filters__button--link button" href="#">
-                            <span class="visually-hidden">Ссылка</span>
-                            <svg class="filters__icon" width="21" height="18">
-                                <use xlink:href="#icon-filter-link"></use>
-                            </svg>
-                        </a>
-                    </li>
+                    <?php endforeach ?>
                 </ul>
             </div>
         </div>
         <div class="popular__posts">
             <?php foreach ($posts as $key => $post) : ?>
-                <article class="popular__post post <?= $post['type']; ?>">
+                <article class="popular__post post post-<?= $post['type']; ?>">
                     <header class="post__header">
                         <h2><?= $post['title']; ?></h2>
                     </header>
                     <div class="post__main">
-                        <?php if ($post['type'] === 'post-quote') : ?>
+                        <?php if ($post['type'] === 'quote') : ?>
                             <blockquote>
                                 <p>
                                     <?= esc($post['description']); ?>
                                 </p>
-                                <cite>Неизвестный Автор</cite>
+                                <cite><?= $post['quote_author']; ?></cite>
                             </blockquote>
-                        <? elseif ($post['type'] === 'post-link') : ?>
+                        <? elseif ($post['type'] === 'link') : ?>
                             <div class="post-link__wrapper">
-                                <a class="post-link__external" href="http://" title="Перейти по ссылке">
+                                <a class="post-link__external" href="http://<?= esc($post['site_link']); ?>" title="Перейти по ссылке">
                                     <div class="post-link__info-wrapper">
                                         <div class="post-link__icon-wrapper">
                                             <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
@@ -109,14 +79,14 @@
                                             <h3><?= $post['title']; ?></h3>
                                         </div>
                                     </div>
-                                    <span><?= esc($post['description']); ?></span>
+                                    <span><?= esc($post['site_link']); ?></span>
                                 </a>
                             </div>
-                        <? elseif ($post['type'] === 'post-photo') : ?>
+                        <? elseif ($post['type'] === 'photo') : ?>
                             <div class="post-photo__image-wrapper">
-                                <img src="img/<?= $post['description']; ?>" alt="Фото от пользователя" width="360" height="240">
+                                <img src="img/<?= $post['img_path']; ?>" alt="Фото от пользователя" width="360" height="240">
                             </div>
-                        <? elseif ($post['type'] === 'post-video') : ?>
+                        <? elseif ($post['type'] === 'video') : ?>
                             <div class="post-video__block">
                                 <div class="post-video__preview">
                                     <?= embed_youtube_cover($test); ?>
@@ -129,7 +99,7 @@
                                     <span class="visually-hidden">Запустить проигрыватель</span>
                                 </a>
                             </div>
-                        <? elseif ($post['type'] === 'post-text') : ?>
+                        <? elseif ($post['type'] === 'text') : ?>
                             <?= cutText(esc($post['description'])) ?>
                         <? endif ?>
 

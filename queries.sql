@@ -38,7 +38,7 @@ set description = 'Этого точно того стоит!', user_id = 2, pos
 
 
 -- получить список постов с сортировкой по популярности и вместе с именами авторов и типом контента
-SELECT p.title, u.name, c.name
+SELECT p.title, u.name AS username, c.name
 FROM posts p JOIN users u ON p.user_id = u.id
 JOIN categories c ON p.category_id = c.id
 ORDER BY show_count DESC;
