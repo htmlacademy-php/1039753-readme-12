@@ -19,12 +19,14 @@ function cutText($text, $max = 300)
     return '<p>' . implode(' ', $result) . '</p>' . $readmore;
 };
 
-function esc($str) {
+function esc($str)
+{
     $text = htmlspecialchars($str);
     return $text;
 };
 
-function calcRelativeTime($ts) {
+function calcRelativeTime($ts)
+{
     $now = time();
     $diff_sec = $now - $ts;
 
@@ -52,5 +54,16 @@ function calcRelativeTime($ts) {
     }
 
     return $result . ' назад';
+}
 
+function select_query($con, $query)
+{
+    $result = mysqli_query($con, $query);
+
+    if (!$result) {
+        $error = mysqli_error($con);
+        print("Ошибка MySQL: " . $error);
+    };
+
+    return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }

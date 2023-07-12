@@ -2,23 +2,18 @@
 require_once('./helpers.php');
 require_once('./functions.php');
 require_once('./data.php');
+require_once('./config.php');
+
 date_default_timezone_set("Asia/Novosibirsk");
 
-$con = mysqli_connect("localhost", "root", "", "readme");
-mysqli_set_charset($con, "utf8");
+$con = mysqli_connect($db['host'], $db['user'], $db['password'], $db['database']);
 
-$categories_sql = "SELECT id, name, icon_class FROM categories";
-$categories_result = mysqli_query($con, $categories_sql);
-$categories = mysqli_fetch_all($categories_result, MYSQLI_ASSOC);
-
-$posts_sql = "SELECT p.title, p.description, p.img_path, p.quote_author, p.video_path, p.site_link, u.name AS username, u.avatar_path AS avatar, c.icon_class AS type
-FROM posts p
-JOIN users u ON p.user_id = u.id
-JOIN categories c ON p.category_id = c.id
-ORDER BY show_count DESC
-LIMIT 6";
-$posts_result = mysqli_query($con, $posts_sql);
-$posts = mysqli_fetch_all($posts_result, MYSQLI_ASSOC);
+if (!$con) {
+    print("Ошибка подключения: " . mysqli_connect_error());
+} else {
+    $categories = select_query($con, $categories_sql);
+    $posts = select_query($con, $posts_sql);
+}
 
 $page_content = include_template('main.php', [
     'posts' => $posts,
